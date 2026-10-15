@@ -1,3 +1,9 @@
+## [1.0.0-dev.3](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-10-15)
+
+### ✨ New Features
+
+* bypass PairIP signature, license and VM gate for 20MTD ([fc766ae](https://github.com/fynnaly/morphe-patches/commit/fc766ae4a1660f4e681e47d904a5e74c6a879761))
+
 ## [1.0.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-10-15)
 
 ### 🐛 Bug Fixes
