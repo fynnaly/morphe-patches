@@ -128,3 +128,8 @@ node_modules/
 # Ignore IDEA files
 .idea/
 local.properties
+
+# Ignore skills and local workspace.
+skills/
+.hermes/
+temp/
