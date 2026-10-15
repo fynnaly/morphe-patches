@@ -3,7 +3,7 @@ group = "app.morphe.patches"
 patches {
     about {
         name = "Fynnaly Patches"
-        description = "Game patches — 20 Minutes Till Dawn and more.",
+        description = "yang penting jalan & work. Personal use."
         source = "https://github.com/fynnaly/morphe-patches"
         author = "Fynnaly"
         contact = "https://github.com/fynnaly"

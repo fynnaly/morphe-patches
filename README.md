@@ -67,7 +67,7 @@ for patcher API details.
      this readme of all developer instructions above. -->
 <!-- PATCHES_END -->
 
-### Building locally
+### 🛠️ Building locally
 
 - Run `./gradlew :patches:buildAndroid`
 - The built patches .mpp file is found in `patches/build/libs/patches-*.mpp`
@@ -84,6 +84,6 @@ See the [Morphe documentation](https://github.com/MorpheApp/morphe-documentation
 - [ ] 20MTD unlock skins (separate patch)
 - [ ] 20MTD skip rewarded ads
 
-## License
+## 📜 License
 
 Fynnaly Patches are licensed under the [GNU General Public License v3.0](LICENSE)
