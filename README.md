@@ -22,49 +22,37 @@ Enable **Pre-release** in the source settings to receive `dev` builds before a s
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
+> **[v1.0.0-dev.1](https://github.com/fynnaly/morphe-patches/releases/tag/v1.0.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
+<details open>
+<summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
 
-<!-- Do not modify this section by hand. The patch list is generated when release.yml creates a new release.
-     
-     If you wish for the patches list to be collapsed, then remove the word 'EXPANDED' from the comment tag above.
+**🎯 Supported versions:**
 
-     If you wish to manually keep this list updated then remove the PATCHES_START and PATCHES_END 
-     comment blocks entirely. -->
+| 8.6 |
+| :---: |
 
-#### A list of your patches will automatically be shown here after your first patches release is created.
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Bypass PairIP signature & license check](#bypass-pairip-signature-license-check) | Neutralizes PairIP tamper gates (SignatureCheck, LicenseClient, VMRunner) so re-signed APKs no longer crash in Application.attachBaseContext. Required for every Minutes Till Dawn patch. |  |
 
-&nbsp;
+</details>
 
-## 🚀 Development
+<details open>
+<summary>📦 XYZ app&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
 
-Branching:
+**🎯 Supported versions:**
 
-- `dev` — preview and experimental work. Every `feat:` / `fix:` commit here
-  produces a pre-release (`v1.x.y-dev.n`) via `release.yml`.
-- `main` — stable releases only. Merge `dev` into `main` (no squash) when a
-  set of patches is verified on-device.
+| 2.0.0 | 1.0.2 |
+| :---: | :---: |
 
-Local build:
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Example Patch](#example-patch) | Example patch to start with. |  |
 
-- Run `./gradlew :patches:buildAndroid` (or `generatePatchesList` for the
-  patch index). The built bundle lands in `patches/build/libs/patches-*.mpp`.
-- Apply the `.mpp` with
-  [Morphe-Desktop](https://github.com/MorpheApp/morphe-desktop) like any other
-  patch bundle.
+</details>
 
-Conventions:
-
-- Use [semantic commits](https://www.conventionalcommits.org/): `feat:`,
-  `fix:`, `chore:`. Only `feat:` / `fix:` trigger a release.
-- Never hand-edit generated files (`patches-list.json`,
-  `patches-bundle.json`, `CHANGELOG.md`) — `release.yml` owns them.
-- Never force-push a semantic-release commit; cut a new release instead.
-
-See the [Morphe documentation](https://github.com/MorpheApp/morphe-documentation)
-for patcher API details.
-
-
-<!-- The patches end tag is intentionally placed here so the first release will clean up 
-     this readme of all developer instructions above. -->
 <!-- PATCHES_END -->
 
 ### 🛠️ Building locally
