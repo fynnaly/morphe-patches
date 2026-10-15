@@ -1,10 +1,10 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.0.0-dev.1",
+  "version": "1.0.0-dev.2",
   "patches": [
     {
       "name": "Bypass PairIP signature & license check",
-      "description": "Neutralizes PairIP tamper gates (SignatureCheck, LicenseClient, VMRunner) so re-signed APKs no longer crash in Application.attachBaseContext. Required for every Minutes Till Dawn patch.",
+      "description": "Neutralizes PairIP tamper gates (SignatureCheck, LicenseClient) so re-signed APKs no longer crash in Application.attachBaseContext. Required for every Minutes Till Dawn patch.",
       "default": true,
       "category": null,
       "dependencies": [],

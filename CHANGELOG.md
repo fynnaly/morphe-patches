@@ -1,3 +1,9 @@
+## [1.0.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-10-15)
+
+### 🐛 Bug Fixes
+
+* stop neutralizing VMRunner, it force-closes via Facebook provider ([42a8106](https://github.com/fynnaly/morphe-patches/commit/42a81066b76aec86574f0e39d4bc87fe82bb4129))
+
 ## 1.0.0-dev.1 (2026-10-15)
 
 ### 🐛 Bug Fixes
