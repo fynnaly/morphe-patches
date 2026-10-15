@@ -14,7 +14,6 @@ import com.android.tools.smali.dexlib2.AccessFlags
  *   extends com.safedk.android.SafeDKApplication
  *   smali_classes2/com/pairip/SignatureCheck.verifyIntegrity(Context)
  *   smali_classes2/com/pairip/licensecheck/LicenseClient.checkLicense(Context)
- *   smali_classes2/com/pairip/VMRunner.<clinit> + invoke + setContext
  *
  * verifyIntegrity computes SHA-256(Base64) of PackageInfo.signatures[0] and
  * throws SignatureTamperedException("Apk signature is invalid.") unless it
@@ -23,7 +22,15 @@ import com.android.tools.smali.dexlib2.AccessFlags
  * must depend on this bypass.
  *
  * Guard strings asserted: "Apk signature is invalid." /
- * "Cannot check license with null context." / "pairipcore".
+ * "Cannot check license with null context.".
+ *
+ * Deliberately does NOT touch VMRunner (clinit / invoke / setContext):
+ * neutralizing invoke to return null kills the PairIP VM side effects that
+ * the app depends on — QONHfEt Method fields stay null and
+ * FacebookContentProvider.onCreate dies with NPE on Method.invoke
+ * (logcat 2026-10-15, 8 identical FC, zero SignatureTampered). The native
+ * libpairipcore.so ships in the ABI split and loads normally; no SIGSEGV
+ * observed on this title.
  */
 
 private object SignatureCheckVerifyFingerprint : Fingerprint(
@@ -46,33 +53,9 @@ private object LicenseClientCheckFingerprint : Fingerprint(
     strings = listOf("Cannot check license with null context.")
 )
 
-private object VMRunnerClinitFingerprint : Fingerprint(
-    definingClass = "Lcom/pairip/VMRunner;",
-    name = "<clinit>",
-    // No accessFlags/returnType: <clinit> carries STATIC|CONSTRUCTOR and the
-    // patcher matches flags exactly, so declaring STATIC alone would miss.
-    strings = listOf("pairipcore")
-)
-
-private object VMRunnerInvokeFingerprint : Fingerprint(
-    definingClass = "Lcom/pairip/VMRunner;",
-    name = "invoke",
-    returnType = "Ljava/lang/Object;",
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    parameters = listOf("Ljava/lang/String;", "[Ljava/lang/Object;"),
-)
-
-private object VMRunnerSetContextFingerprint : Fingerprint(
-    definingClass = "Lcom/pairip/VMRunner;",
-    name = "setContext",
-    returnType = "V",
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    parameters = listOf("Landroid/content/Context;"),
-)
-
 val pairipBypassPatch = bytecodePatch(
     name = "Bypass PairIP signature & license check",
-    description = "Neutralizes PairIP tamper gates (SignatureCheck, LicenseClient, VMRunner) so re-signed APKs no longer crash in Application.attachBaseContext. Required for every Minutes Till Dawn patch."
+    description = "Neutralizes PairIP tamper gates (SignatureCheck, LicenseClient) so re-signed APKs no longer crash in Application.attachBaseContext. Required for every Minutes Till Dawn patch."
 ) {
     compatibleWith(COMPATIBILITY_20MTD)
 
@@ -82,15 +65,5 @@ val pairipBypassPatch = bytecodePatch(
         SignatureCheckVerifyFingerprint.method.addInstructions(0, "return-void")
         // License gate — return before service bind.
         LicenseClientCheckFingerprint.method.addInstructions(0, "return-void")
-        // Native VM gate — clinit loads libpairipcore.so; invoke bridges ~20 instrumented call sites.
-        VMRunnerClinitFingerprint.method.addInstructions(0, "return-void")
-        VMRunnerInvokeFingerprint.method.addInstructions(
-            0,
-            """
-                const/4 v0, 0x0
-                return-object v0
-            """.trimIndent()
-        )
-        VMRunnerSetContextFingerprint.method.addInstructions(0, "return-void")
     }
 }
