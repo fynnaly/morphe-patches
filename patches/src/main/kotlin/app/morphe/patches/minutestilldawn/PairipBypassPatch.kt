@@ -94,8 +94,20 @@ private object StartupLauncherFingerprint : Fingerprint(
     definingClass = "Lcom/pairip/StartupLauncher;",
     name = "launch",
     returnType = "V",
-    accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.STATIC),
-    strings = listOf("8jsM3WGcz3HmEwH0")
+    // No accessFlags: the patcher compares them exactly, and launch() is declared
+    // `public static declared-synchronized`, so listing PUBLIC|STATIC alone never
+    // matches. Name + definingClass is unambiguous here.
+    //
+    // startupProgramName is a *static field* (`= "8jsM3WGcz3HmEwH0"`), not a
+    // const-string inside the body, so a `strings` filter cannot match either.
+    // Anchor on the field read instead — see vmHolderField() for the same reason.
+    filters = listOf(
+        fieldAccess(
+            name = "startupProgramName",
+            type = "Ljava/lang/String;",
+            opcode = Opcode.SGET_OBJECT
+        )
+    )
 )
 
 // ---- Layer 3: virtualised call sites the app cannot start without ----------------
