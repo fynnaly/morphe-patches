@@ -1,3 +1,9 @@
+## [1.0.0-dev.4](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2026-10-16)
+
+### 🐛 Bug Fixes
+
+* match PairIP StartupLauncher without exact access flags ([22a988b](https://github.com/fynnaly/morphe-patches/commit/22a988b9fc293c70c3a43af429c3ce4d145a32a3)), closes [#1](https://github.com/fynnaly/morphe-patches/issues/1)
+
 ## [1.0.0-dev.3](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-10-15)
 
 ### ✨ New Features

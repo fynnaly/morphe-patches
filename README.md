@@ -22,7 +22,7 @@ Enable **Pre-release** in the source settings to receive `dev` builds before a s
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0-dev.3](https://github.com/fynnaly/morphe-patches/releases/tag/v1.0.0-dev.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
+> **[v1.0.0-dev.4](https://github.com/fynnaly/morphe-patches/releases/tag/v1.0.0-dev.4)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
 <details open>
 <summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
