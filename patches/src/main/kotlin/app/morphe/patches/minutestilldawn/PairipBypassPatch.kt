@@ -2,11 +2,20 @@ package app.morphe.patches.minutestilldawn
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.util.proxy.mutableTypes.encodedValue.MutableStringEncodedValue
+import app.morphe.patcher.util.smali.toInstruction
 import app.morphe.patches.minutestilldawn.Constants.COMPATIBILITY_20MTD
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction11x
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction35c
+import com.android.tools.smali.dexlib2.iface.ClassDef
+import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference
+import com.android.tools.smali.dexlib2.immutable.value.ImmutableStringEncodedValue
+import com.android.tools.smali.dexlib2.util.FieldUtil
 
 /**
  * PairIP bypass — prerequisite for every other Minutes Till Dawn patch.
@@ -110,13 +119,87 @@ private object StartupLauncherFingerprint : Fingerprint(
     )
 )
 
-// ---- Layer 3: virtualised call sites the app cannot start without ----------------
+// ---- Layer 4: verbose PairIP UI paths that survive the null-return of checkLicense --
 //
-// `type = "Ljava/lang/reflect/Method;"` with SGET_OBJECT is true only for a class
-// that holds a static java.lang.reflect.Method field. The app itself never does
-// that — PairIP generated those holders for the methods it virtualised — and the
-// combination with the exact method name pins the call site without depending on
-// the obfuscated holder class name (which changes per build).
+// checkLicense returning early leaves a bound Play licensing service that still
+// reports "no license". Its responses then flow into these two private methods.
+// Neutralising the gate at its entry (checkLicense) plus both presentation sinks
+// makes every license outcome invisible. Verified on-device 2026-10-17: with all
+// three nop'd the game reached main menu with zero dialogs and no System.exit(0).
+
+private object LicenseClientStartPaywallFingerprint : Fingerprint(
+    definingClass = "Lcom/pairip/licensecheck/LicenseClient;",
+    name = "startPaywallActivity",
+    returnType = "V",
+    parameters = listOf("Landroid/app/PendingIntent;"),
+    strings = listOf("paywallintent")
+)
+
+private object LicenseClientStartErrorDialogFingerprint : Fingerprint(
+    definingClass = "Lcom/pairip/licensecheck/LicenseClient;",
+    name = "startErrorDialogActivity",
+    returnType = "V",
+    strings = listOf("activitytype")
+)
+
+// ---- Layer 5: the VM choke point ----------------------------------------------------
+//
+// Besides StartupLauncher, ~22 more PairIP-virtualised stubs across SDKs(Facebook
+// auth, Firebase messaging, WorkManager, GameAnalytics, ...) call
+// VMRunner.invoke(String, Object[]) directly, days after launch. Every one of
+// them funnels into the single invoke() entry, so no-oping invoke() closes the
+// native VM for good. Verified on-device: SIGSEGV in libpairipcore.so gone (was
+// deterministic pc 0x5a684 FNV-1a check), JIT /engine still runs at 30 FPS.
+
+private object VMRunnerInvokeFingerprint : Fingerprint(
+    definingClass = "Lcom/pairip/VMRunner;",
+    name = "invoke",
+    returnType = "Ljava/lang/Object;",
+    strings = listOf("Executing ")
+)
+
+// ---- Layer 6: stubs that must return a value, not null ------------------------------
+//
+// invoke() returning null is fine for V- and Z-shaped stubs but WorkManager's
+// CombineContinuationsWorker chain and GMS's OfflinePingSender NPE on
+// check-cast ListenableWorker$Result. Return Result.success() instead.
+
+private object CombineContinuationsWorkerFingerprint : Fingerprint(
+    definingClass = "Landroidx/work/impl/workers/CombineContinuationsWorker;",
+    name = "doWork",
+    // Kotlin string templates: escape `\$` so the real class name survives.
+    returnType = "Landroidx/work/ListenableWorker\$Result;"
+)
+
+private object OfflinePingSenderFingerprint : Fingerprint(
+    definingClass = "Lcom/google/android/gms/ads/internal/offline/buffering/OfflinePingSender;",
+    name = "doWork",
+    returnType = "Landroidx/work/ListenableWorker\$Result;"
+)
+
+// ---- Layer 7: string-pool consumers that NPE on the null holders ---------------------
+
+private object TenjinStartupRunnableFingerprint : Fingerprint(
+    definingClass = "Lcom/tenjin/android/utils/TenjinStartup$1;",
+    name = "run",
+    returnType = "V"
+)
+
+// ---- Layer 8: AppLovin duplicate-key assertion --------------------------------------
+//
+// With all pool strings set to "", the 388 AppLovin settings all register the
+// same key "" and sj.a() throws IllegalArgumentException("Setting has already
+// been used") in its clinit, crashing at the login screen. Branching over the
+// assert keeps duplicate settings overwriting the previous value, the semantics
+// a settings registry normally has.
+
+private object AppLovinSettingRegisterFingerprint : Fingerprint(
+    definingClass = "Lcom/applovin/impl/sj;",
+    name = "a",
+    returnType = "Lcom/applovin/impl/sj;",
+    parameters = listOf("Ljava/lang/String;", "Ljava/lang/Object;"),
+    strings = listOf("Setting has already been used: ")
+)
 
 private fun vmHolderField() = fieldAccess(
     type = "Ljava/lang/reflect/Method;",
@@ -258,5 +341,90 @@ val pairipBypassPatch = bytecodePatch(
                 return-void
             """.trimIndent()
         )
+
+        // ---- Layer 4 ------------------------------------------------------------------
+        // Both presentation sinks nop'd — no paywall, no error dialog, ever.
+        LicenseClientStartPaywallFingerprint.method.addInstructions(0, "return-void")
+        LicenseClientStartErrorDialogFingerprint.method.addInstructions(0, "return-void")
+
+        // ---- Layer 5 ------------------------------------------------------------------
+        // Close the native VM for every virtualised stub at the single entry point.
+        // The original body (log, readByteCode, executeVM) becomes dead code.
+        VMRunnerInvokeFingerprint.method.addInstructions(
+            0,
+            """
+                const/4 v0, 0x0
+                return-object v0
+            """.trimIndent()
+        )
+
+        // ---- Layer 6 ------------------------------------------------------------------
+        // Stub bodies for WorkManager / GMS workers return Result.success() so their
+        // callers never see a null ListenableWorker$Result.
+        //
+        // Built through the dexlib2 API rather than inline smali: the smali lexer
+        // chokes on the `$` in `ListenableWorker$Result` ("Invalid directive").
+        val successRef = ImmutableMethodReference(
+            "Landroidx/work/ListenableWorker\$Result;",
+            "success",
+            emptyList(),
+            "Landroidx/work/ListenableWorker\$Result;"
+        )
+        val successResult = listOf(
+            BuilderInstruction35c(Opcode.INVOKE_STATIC, 0, 0, 0, 0, 0, 0, successRef),
+            BuilderInstruction11x(Opcode.MOVE_RESULT_OBJECT, 0),
+            BuilderInstruction11x(Opcode.RETURN_OBJECT, 0)
+        )
+        CombineContinuationsWorkerFingerprint.method.addInstructions(0, successResult)
+        OfflinePingSenderFingerprint.method.addInstructions(0, successResult)
+
+        // ---- Layer 7 ------------------------------------------------------------------
+        // Tenjin's startup thread reads a pool holder field (SvuapeuVOPOnAk string
+        // pool) and dies with StringBuilder.<init>(null). Skip it entirely — it is
+        // only an attribution SDK entry, nothing gameplay depends on.
+        TenjinStartupRunnableFingerprint.method.addInstructions(0, "return-void")
+
+        // ---- Layer 8 ------------------------------------------------------------------
+        // Replace the duplicate-key throw with a direct put + return. The original
+        // instructions after it (StringBuilder, throw IllegalArgumentException) are
+        // unreachable dead code — the verifier never inspects them.
+        val appLovinMethod = AppLovinSettingRegisterFingerprint.method
+        // Index 12 is `if-nez v1, :cond_0` (the duplicate-key branch). NOP it so
+        // both new and duplicate keys fall through to the existing put+return at
+        // indices 13,14. The throw block at :cond_0 becomes dead code.
+        appLovinMethod.replaceInstruction(
+            12,
+            "nop".toInstruction(appLovinMethod)
+        )
+
+        // ---- Layer 9: the string pool itself -----------------------------------------
+        //
+        // Every string-pool holder class carries static String fields that the native
+        // VM was supposed to fill at runtime (it can't — its bytecode is encrypted
+        // and keyed to the original signature). Consumers then die on
+        // StringBuilder.<init>(null) or String.length() == 0 NPEs, and the SDK init
+        // chains that read them stall the game at the loading screen.
+        //
+        // Fill them with "" so consumers get a valid (if empty) string and fall
+        // through to the SDK's own defaults. Setting them to "" rather than the
+        // real values is deliberate: the actual values are unrecoverable, and any
+        // logic keyed on the string's content (e.g. equals("...")) just evaluates
+        // to false and takes the neutral branch.
+        //
+        // Fields that were already assigned a literal (initialValue != null) are
+        // left untouched — only the PairIP-generated pool holders match.
+        val staticStringPool = { cls: ClassDef ->
+            cls.methods.count() == 0 &&
+                cls.fields.count() >= 10 &&
+                cls.fields.all { FieldUtil.isStatic(it) && it.type == "Ljava/lang/String;" }
+        }
+        classDefForEach { cls ->
+            if (!staticStringPool(cls)) return@classDefForEach
+            mutableClassDefBy(cls).staticFields.forEach { field ->
+                field.setInitialValue(
+                    MutableStringEncodedValue(ImmutableStringEncodedValue(""))
+                )
+            }
+        }
     }
 }
