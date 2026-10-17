@@ -1,3 +1,9 @@
+## [1.0.0-dev.6](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2026-10-17)
+
+### ✨ New Features
+
+* skip rewarded ads to instantly grant unlock rewards ([a70095f](https://github.com/fynnaly/morphe-patches/commit/a70095f52b649bac1f70984c68612ecc21f466b4))
+
 ## [1.0.0-dev.5](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-10-17)
 
 ### ✨ New Features

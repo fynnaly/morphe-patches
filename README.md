@@ -13,9 +13,9 @@ Personal collection of Morphe patches.
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0-dev.5](https://github.com/fynnaly/morphe-patches/releases/tag/v1.0.0-dev.5)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;1 patches total
+> **[v1.0.0-dev.6](https://github.com/fynnaly/morphe-patches/releases/tag/v1.0.0-dev.6)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
 <details open>
-<summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -26,6 +26,7 @@ Personal collection of Morphe patches.
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Bypass PairIP signature, license & VM gate](#bypass-pairip-signature-license-vm-gate) | Neutralises the PairIP signature and license gates, restores the virtualised lifecycle methods with real Unity delegating bodies, and skips the startup VM program. Required for every Minutes Till Dawn patch. |  |
+| [Skip rewarded ads](#skip-rewarded-ads) | Grants the rewarded-ad reward without playing the video, so every "watch an ad to unlock" gate (heroes, guns, coupons, daily gift) resolves instantly. |  |
 
 </details>
 
