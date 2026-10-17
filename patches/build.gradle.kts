@@ -1,13 +1,13 @@
-group = "app.morphe.patches"
+group = "app.fynnaly.patches"
 
 patches {
     about {
-        name = "Fynnaly Patches"
-        description = "yang penting jalan & work. Personal use."
+        name = "Fynnaly can Patch"
+        description = "Custom patches for Morphe by Fynnaly."
         source = "https://github.com/fynnaly/morphe-patches"
         author = "Fynnaly"
-        contact = "https://github.com/fynnaly"
-        website = "https://github.com/fynnaly/morphe-patches"
+        contact = "na"
+        website = "na"
         license = "GPLv3"
     }
 }
