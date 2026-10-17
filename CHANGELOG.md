@@ -1,3 +1,9 @@
+## [1.0.0-dev.5](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-10-17)
+
+### ✨ New Features
+
+* fully unlock 20 Minutes Till Dawn runtime (PairIP VM, string pool, ads SDK) ([9dea8ac](https://github.com/fynnaly/morphe-patches/commit/9dea8ac660d1a772448fa8fa8325452b3c535fb2))
+
 ## [1.0.0-dev.4](https://github.com/fynnaly/morphe-patches/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2026-10-16)
 
 ### 🐛 Bug Fixes
