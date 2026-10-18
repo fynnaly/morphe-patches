@@ -1,3 +1,9 @@
+## [1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-10-18)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** force the store, planets and skins call sites of the entitlement accessor ([4f09be9](https://github.com/fynnaly/morphe-patches/commit/4f09be9769b91f8fc6698a9b875c18ff53a2fb0c))
+
 ## [1.1.0-dev.1](https://github.com/fynnaly/morphe-patches/compare/v1.0.0...v1.1.0-dev.1) (2026-10-18)
 
 ### 🐛 Bug Fixes
