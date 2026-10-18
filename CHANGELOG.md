@@ -1,3 +1,9 @@
+## [1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-10-18)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** correct the patch description and scope to the four gates actually patched ([22ce7e6](https://github.com/fynnaly/morphe-patches/commit/22ce7e6869c2c567dc66a8470f63f7c107083b1c))
+
 ## [1.1.0-dev.1](https://github.com/fynnaly/morphe-patches/compare/v1.0.0...v1.1.0-dev.1) (2026-10-18)
 
 ### ✨ New Features

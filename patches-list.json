@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0-dev.1",
+  "version": "1.1.0-dev.2",
   "patches": [
     {
       "name": "Bypass PairIP signature, license & VM gate",
@@ -64,7 +64,7 @@
     },
     {
       "name": "Unlock expansions",
-      "description": "Forces the il2cpp part-ownership and allowance getters in libil2cpp.so to return true (arm64-v8a and armeabi-v7a). Covers the part packs; the store's purchase receipts are unaffected.",
+      "description": "Forces four native il2cpp gates in libil2cpp.so to return true (arm64-v8a and armeabi-v7a): part ownership, part allowance, the store's ownership predicate and the cheats flag. Purchase receipts are not faked, so Play Billing results are unaffected.",
       "default": true,
       "category": null,
       "dependencies": [],
