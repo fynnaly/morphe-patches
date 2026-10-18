@@ -22,11 +22,14 @@ import java.io.File
  *   Both are forced to `return true`, which removes the ownership/allowance gate for every part.
  *
  * Scope — read before promising anything:
- *   - Covers: the part packs (Parts Expansion / Big Parts, Redstone Atlas) and any module that
- *     consults these two getters.
- *   - Does NOT cover: the store's Play Billing receipts (the Expansions screen keeps showing prices —
- *     that layer is `Unity.Purchasing`/BillingClient, not these getters), nor expansions gated by
- *     other systems (skins, infinite build area, planets) which read their own state.
+ *   - Covers (all four forced to `return true`): part ownership and part allowance in the builder,
+ *     `EDRDUTMFILKPRGQP.HGOOLGOEKMK(int)` = the store's per-expansion ownership predicate, and
+ *     `SFS.WorldBase.JRMHWFEIUSAIOARX.get_AllowsCheats` = the world flag that gates the cheats menu.
+ *   - Does NOT cover: the store's Play Billing receipts (prices still come from BillingClient and a
+ *     real purchase still uses the real flow), expansions behind other systems — infinite build area
+ *     (`GZRGGLAJZJQJYQWD.GetOwnedGridSize`, returns Vector2), planets
+ *     (`IDPXFOVTORFVYNOM.OpenSelectSolarSystemMenu`) and skins (`JDTIIKLUYWPXKAKX.DrawSkinButtons`) —
+ *     and no receipt is faked, so nothing is granted server-side.
  *   - Unverifiable in effect without playing: the byte patch is confirmed present in the installed
  *     artifact and the game boots and runs with it, but the in-game unlock was never observed
  *     (device-side verification kept failing on unrelated issues: locked screen, ROM kills at low
@@ -75,7 +78,7 @@ private fun String.hexToBytes(): ByteArray =
 
 val unlockExpansionsPatch = resourcePatch(
     name = "Unlock expansions",
-    description = "Forces the il2cpp part-ownership and allowance getters in libil2cpp.so to return true (arm64-v8a and armeabi-v7a). Covers the part packs; the store's purchase receipts are unaffected."
+    description = "Forces four native il2cpp gates in libil2cpp.so to return true (arm64-v8a and armeabi-v7a): part ownership, part allowance, the store's ownership predicate and the cheats flag. Purchase receipts are not faked, so Play Billing results are unaffected."
 ) {
     compatibleWith(Constants.COMPATIBILITY_SFS)
 
