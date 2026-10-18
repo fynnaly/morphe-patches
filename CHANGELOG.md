@@ -1,3 +1,9 @@
+## [1.1.0-dev.1](https://github.com/fynnaly/morphe-patches/compare/v1.0.0...v1.1.0-dev.1) (2026-10-18)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** native expansion/cheats unlock patch + il2cpp gate-patching skill ([bb1068b](https://github.com/fynnaly/morphe-patches/commit/bb1068b4e94c3b4107d487e703559b95c0b610ad))
+
 ## 1.0.0 (2026-10-17)
 
 ### 🐛 Bug Fixes

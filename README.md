@@ -13,7 +13,7 @@ Personal collection of Morphe patches.
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0](https://github.com/fynnaly/morphe-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
+> **[v1.1.0-dev.1](https://github.com/fynnaly/morphe-patches/releases/tag/v1.1.0-dev.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
 <summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
@@ -27,6 +27,21 @@ Personal collection of Morphe patches.
 |----------|----------------|-----------|
 | [Bypass PairIP signature, license & VM gate](#bypass-pairip-signature-license-vm-gate) | Neutralises the PairIP signature and license gates, restores the virtualised lifecycle methods with real Unity delegating bodies, and skips the startup VM program. Required for every Minutes Till Dawn patch. |  |
 | [Skip rewarded ads](#skip-rewarded-ads) | Grants the rewarded-ad reward without playing the video, so every "watch an ad to unlock" gate (heroes, guns, coupons, daily gift) resolves instantly. |  |
+
+</details>
+
+<details open>
+<summary>📦 Spaceflight Simulator&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 1.6.00.22 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Unlock expansions](#unlock-expansions) | Forces the il2cpp part-ownership and allowance getters in libil2cpp.so to return true (arm64-v8a and armeabi-v7a). Covers the part packs; the store's purchase receipts are unaffected. |  |
 
 </details>
 
