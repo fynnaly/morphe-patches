@@ -1,3 +1,9 @@
+## [1.1.0-dev.5](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2026-10-19)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** add a patch for buttons that do not react ([133c21c](https://github.com/fynnaly/morphe-patches/commit/133c21cdf068199750e874de140486f6e736de8a))
+
 ## [1.1.0-dev.4](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2026-10-19)
 
 ### ✨ New Features
