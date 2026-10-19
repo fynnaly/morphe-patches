@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-18T11:52:36",
-  "description": "## [1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-10-18)\n\n### ✨ New Features\n\n* **spaceflightsimulator:** force the store, planets and skins call sites of the entitlement accessor ([4f09be9](https://github.com/fynnaly/morphe-patches/commit/4f09be9769b91f8fc6698a9b875c18ff53a2fb0c))",
-  "download_url": "https://github.com/fynnaly/morphe-patches/releases/download/v1.1.0-dev.2/patches-1.1.0-dev.2.mpp",
+  "created_at": "2026-10-19T12:28:35",
+  "description": "## [1.1.0-dev.3](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2026-10-19)\n\n### 🐛 Bug Fixes\n\n* **spaceflightsimulator:** force the per-SKU ownership predicate the shop actually uses ([9737e22](https://github.com/fynnaly/morphe-patches/commit/9737e223ab7df5d0ce9c50c595e430e45ff04d63))",
+  "download_url": "https://github.com/fynnaly/morphe-patches/releases/download/v1.1.0-dev.3/patches-1.1.0-dev.3.mpp",
   "signature_download_url": "",
-  "version": "1.1.0-dev.2"
+  "version": "1.1.0-dev.3"
 }

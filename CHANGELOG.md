@@ -1,3 +1,9 @@
+## [1.1.0-dev.3](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2026-10-19)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** force the per-SKU ownership predicate the shop actually uses ([9737e22](https://github.com/fynnaly/morphe-patches/commit/9737e223ab7df5d0ce9c50c595e430e45ff04d63))
+
 ## [1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-10-18)
 
 ### ✨ New Features

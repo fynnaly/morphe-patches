@@ -13,7 +13,7 @@ Personal collection of Morphe patches.
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/releases/tag/v1.1.0-dev.2)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
+> **[v1.1.0-dev.3](https://github.com/fynnaly/morphe-patches/releases/tag/v1.1.0-dev.3)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
 <summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
@@ -41,7 +41,7 @@ Personal collection of Morphe patches.
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Unlock expansions](#unlock-expansions) | Forces four native il2cpp gates in libil2cpp.so to return true (arm64-v8a and armeabi-v7a): part ownership, part allowance, the store's ownership predicate and the cheats flag. Purchase receipts are not faked, so Play Billing results are unaffected. |  |
+| [Unlock expansions](#unlock-expansions) | Forces the native il2cpp entitlement gates in libil2cpp.so to true (arm64-v8a and armeabi-v7a): the per-SKU ownership predicate the shop consults, part ownership, build allowance, the cheats menu, the planets menu and the skins. No receipt is faked, so Play Billing itself is untouched. |  |
 
 </details>
 
