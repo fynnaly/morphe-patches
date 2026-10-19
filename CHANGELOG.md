@@ -1,3 +1,9 @@
+## [1.1.0-dev.6](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2026-10-19)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** drop the forced call sites, keep the ownership patch minimal ([925ee30](https://github.com/fynnaly/morphe-patches/commit/925ee30a0f29ec8ebc8ee54439f64e002c253d61))
+
 ## [1.1.0-dev.5](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2026-10-19)
 
 ### ✨ New Features
