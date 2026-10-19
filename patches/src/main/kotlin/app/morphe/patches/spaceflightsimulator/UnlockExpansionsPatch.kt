@@ -66,6 +66,12 @@ private const val ARM64_MOV_W0_1 = "20008052"
 /** `mov r0, #1` - ARM mode, same size as the `bl` it replaces */
 private const val ARM32_MOV_R0_1 = "0100a0e3"
 
+/** `mov x1, #1` - arm64, forces the initial value of a freshly created Bool_Local to true */
+private const val ARM64_MOV_X1_1 = "21008052"
+
+/** `mov r1, #1` - ARM mode, same purpose */
+private const val ARM32_MOV_R1_1 = "0110a0e3"
+
 private data class WordWrite(
     val libPath: String,
     val fileOffset: Int,
@@ -92,6 +98,14 @@ private val WORD_WRITES = listOf(
     WordWrite(ARM64_LIB, 0x183B234, "fe0f1ff8081c40f9", ARM64_RETURN_TRUE, "JRMHWFEIUSAIOARX.get_AllowsCheats"),
     WordWrite(ARMV7_LIB, 0xDA25D4, "10402de91c4090e5", ARM32_RETURN_TRUE, "JRMHWFEIUSAIOARX.get_AllowsCheats"),
     // part ownership / allowance in the builder
+)
+
+// The per-SKU "owned" flag is created as `new Bool_Local(false)` inside the SKU constructor.
+// Forcing that initial value to true makes every SKU start out owned, whatever the store reports.
+private val ARGUMENT_FORCES = listOf(
+    // NFPAPMNDEML..ctor: new Bool_Local(false) -> new Bool_Local(true)
+    WordWrite(ARM64_LIB, 0x17D542C, "e1031faa", ARM64_MOV_X1_1, "NFPAPMNDEML..ctor"),
+    WordWrite(ARMV7_LIB, 0xD21F5C, "0010a0e3", ARM32_MOV_R1_1, "NFPAPMNDEML..ctor"),
 )
 
 // One call to `Obs<bool>.ALEDKGMCDCB` inside store/UI code, replaced with a constant `true`.
@@ -151,7 +165,7 @@ val unlockExpansionsPatch = resourcePatch(
     compatibleWith(Constants.COMPATIBILITY_SFS)
 
     execute {
-        (WORD_WRITES + CALL_SITE_FORCES).groupBy { it.libPath }.forEach { (libPath, writes) ->
+        (WORD_WRITES + CALL_SITE_FORCES + ARGUMENT_FORCES).groupBy { it.libPath }.forEach { (libPath, writes) ->
             val lib: File = get(libPath)
             val bytes = lib.readBytes()
 
