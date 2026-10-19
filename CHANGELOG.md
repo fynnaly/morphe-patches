@@ -1,3 +1,9 @@
+## [1.1.0-dev.4](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2026-10-19)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** make every SKU start out owned, not just the shop predicate ([8469bc1](https://github.com/fynnaly/morphe-patches/commit/8469bc1c9150502290f65ebc262cb186135d5c5b))
+
 ## [1.1.0-dev.3](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2026-10-19)
 
 ### 🐛 Bug Fixes
