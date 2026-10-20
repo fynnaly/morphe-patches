@@ -1,3 +1,9 @@
+## [1.1.0-dev.7](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* **minutestilldawn:** restore the Room column name that PairIP moved into the string pool ([a9dc534](https://github.com/fynnaly/morphe-patches/commit/a9dc5348f329b61c22ae72c43f54ff0bb3c9004a))
+
 ## [1.1.0-dev.6](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2026-10-19)
 
 ### 🐛 Bug Fixes

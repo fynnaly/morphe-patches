@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0-dev.6",
+  "version": "1.1.0-dev.7",
   "patches": [
     {
       "name": "Bypass PairIP signature, license & VM gate",
@@ -8,6 +8,37 @@
       "default": true,
       "category": null,
       "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.Flanne.MinutesTillDawn.roguelike.shooting.fr.gp",
+          "name": "20 Minutes Till Dawn",
+          "description": "20 Minutes Till Dawn — roguelike survival shooter (Flanne)",
+          "apkFileType": "XAPK",
+          "appIconColor": "#1A1A2E",
+          "signatures": [
+            "5fcb0a7a028ba1eed3a81c9ff5dda97344f2c222c326d568542bc1b5fbd9d16a"
+          ],
+          "targets": [
+            {
+              "version": "8.6",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Fix WorkManager column names",
+      "description": "Restores the Room column name that PairIP moved into the encrypted string pool, so WorkManager no longer kills the game with \"column '' does not exist\" on the next launch after the app was killed.",
+      "default": true,
+      "category": null,
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": [
         {
           "packageName": "com.Flanne.MinutesTillDawn.roguelike.shooting.fr.gp",
