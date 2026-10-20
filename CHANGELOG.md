@@ -1,3 +1,9 @@
+## [1.1.0-dev.8](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* **minutestilldawn:** fold the WorkManager column repair into the PairIP bypass ([f873c47](https://github.com/fynnaly/morphe-patches/commit/f873c47ba4e0c55857b9c361bbaf2646052abcde))
+
 ## [1.1.0-dev.7](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2026-10-20)
 
 ### 🐛 Bug Fixes

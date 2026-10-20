@@ -13,9 +13,9 @@ Personal collection of Morphe patches.
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.1.0-dev.7](https://github.com/fynnaly/morphe-patches/releases/tag/v1.1.0-dev.7)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;5 patches total
+> **[v1.1.0-dev.8](https://github.com/fynnaly/morphe-patches/releases/tag/v1.1.0-dev.8)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;4 patches total
 <details open>
-<summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
+<summary>📦 20 Minutes Till Dawn&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -26,7 +26,6 @@ Personal collection of Morphe patches.
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Bypass PairIP signature, license & VM gate](#bypass-pairip-signature-license-vm-gate) | Neutralises the PairIP signature and license gates, restores the virtualised lifecycle methods with real Unity delegating bodies, and skips the startup VM program. Required for every Minutes Till Dawn patch. |  |
-| [Fix WorkManager column names](#fix-workmanager-column-names) | Restores the Room column name that PairIP moved into the encrypted string pool, so WorkManager no longer kills the game with "column '' does not exist" on the next launch after the app was killed. |  |
 | [Skip rewarded ads](#skip-rewarded-ads) | Grants the rewarded-ad reward without playing the video, so every "watch an ad to unlock" gate (heroes, guns, coupons, daily gift) resolves instantly. |  |
 
 </details>

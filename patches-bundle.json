@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-20T12:02:00",
-  "description": "## [1.1.0-dev.7](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2026-10-20)\n\n### 🐛 Bug Fixes\n\n* **minutestilldawn:** restore the Room column name that PairIP moved into the string pool ([a9dc534](https://github.com/fynnaly/morphe-patches/commit/a9dc5348f329b61c22ae72c43f54ff0bb3c9004a))",
-  "download_url": "https://github.com/fynnaly/morphe-patches/releases/download/v1.1.0-dev.7/patches-1.1.0-dev.7.mpp",
+  "created_at": "2026-10-20T12:07:33",
+  "description": "## [1.1.0-dev.8](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2026-10-20)\n\n### 🐛 Bug Fixes\n\n* **minutestilldawn:** fold the WorkManager column repair into the PairIP bypass ([f873c47](https://github.com/fynnaly/morphe-patches/commit/f873c47ba4e0c55857b9c361bbaf2646052abcde))",
+  "download_url": "https://github.com/fynnaly/morphe-patches/releases/download/v1.1.0-dev.8/patches-1.1.0-dev.8.mpp",
   "signature_download_url": "",
-  "version": "1.1.0-dev.7"
+  "version": "1.1.0-dev.8"
 }
