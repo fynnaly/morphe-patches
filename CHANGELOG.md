@@ -1,3 +1,73 @@
+## [1.1.0-dev.9](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.8...v1.1.0-dev.9) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** unlock expansions without faking the ownership state ([ca21e85](https://github.com/fynnaly/morphe-patches/commit/ca21e855841af5648794fc361293ae1587fe880e))
+
+## [1.1.0-dev.8](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* **minutestilldawn:** fold the WorkManager column repair into the PairIP bypass ([f873c47](https://github.com/fynnaly/morphe-patches/commit/f873c47ba4e0c55857b9c361bbaf2646052abcde))
+
+## [1.1.0-dev.7](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.6...v1.1.0-dev.7) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* **minutestilldawn:** restore the Room column name that PairIP moved into the string pool ([a9dc534](https://github.com/fynnaly/morphe-patches/commit/a9dc5348f329b61c22ae72c43f54ff0bb3c9004a))
+
+## [1.1.0-dev.6](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.5...v1.1.0-dev.6) (2026-10-19)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** drop the forced call sites, keep the ownership patch minimal ([925ee30](https://github.com/fynnaly/morphe-patches/commit/925ee30a0f29ec8ebc8ee54439f64e002c253d61))
+
+## [1.1.0-dev.5](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.4...v1.1.0-dev.5) (2026-10-19)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** add a patch for buttons that do not react ([133c21c](https://github.com/fynnaly/morphe-patches/commit/133c21cdf068199750e874de140486f6e736de8a))
+
+## [1.1.0-dev.4](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.3...v1.1.0-dev.4) (2026-10-19)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** make every SKU start out owned, not just the shop predicate ([8469bc1](https://github.com/fynnaly/morphe-patches/commit/8469bc1c9150502290f65ebc262cb186135d5c5b))
+
+## [1.1.0-dev.3](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.2...v1.1.0-dev.3) (2026-10-19)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** force the per-SKU ownership predicate the shop actually uses ([9737e22](https://github.com/fynnaly/morphe-patches/commit/9737e223ab7df5d0ce9c50c595e430e45ff04d63))
+
+## [1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-10-18)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** force the store, planets and skins call sites of the entitlement accessor ([4f09be9](https://github.com/fynnaly/morphe-patches/commit/4f09be9769b91f8fc6698a9b875c18ff53a2fb0c))
+
+## [1.1.0-dev.1](https://github.com/fynnaly/morphe-patches/compare/v1.0.0...v1.1.0-dev.1) (2026-10-18)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** correct the patch description and scope to the four gates actually patched ([ffa1510](https://github.com/fynnaly/morphe-patches/commit/ffa15104f753f807aa2e90e8fd8dd3b8cf9d4fe1))
+
+### ✨ New Features
+
+* **spaceflightsimulator:** native expansion/cheats unlock patch + il2cpp gate-patching skill ([33fe99c](https://github.com/fynnaly/morphe-patches/commit/33fe99cfd1de22439c43a8d67d767c65da5bbf6e))
+
+## [1.1.0-dev.2](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.1...v1.1.0-dev.2) (2026-10-18)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** correct the patch description and scope to the four gates actually patched ([22ce7e6](https://github.com/fynnaly/morphe-patches/commit/22ce7e6869c2c567dc66a8470f63f7c107083b1c))
+
+## [1.1.0-dev.1](https://github.com/fynnaly/morphe-patches/compare/v1.0.0...v1.1.0-dev.1) (2026-10-18)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** native expansion/cheats unlock patch + il2cpp gate-patching skill ([bb1068b](https://github.com/fynnaly/morphe-patches/commit/bb1068b4e94c3b4107d487e703559b95c0b610ad))
+
 ## 1.0.0 (2026-10-17)
 
 ### 🐛 Bug Fixes
