@@ -1,3 +1,9 @@
+## [1.1.0-dev.9](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.8...v1.1.0-dev.9) (2026-10-20)
+
+### 🐛 Bug Fixes
+
+* **spaceflightsimulator:** unlock expansions without faking the ownership state ([ca21e85](https://github.com/fynnaly/morphe-patches/commit/ca21e855841af5648794fc361293ae1587fe880e))
+
 ## [1.1.0-dev.8](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.7...v1.1.0-dev.8) (2026-10-20)
 
 ### 🐛 Bug Fixes
