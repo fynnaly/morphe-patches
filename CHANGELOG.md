@@ -1,3 +1,9 @@
+## [1.1.0-dev.10](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.9...v1.1.0-dev.10) (2026-11-02)
+
+### ✨ New Features
+
+* **spaceflightsimulator:** remove experimental SFS patches ([65e891b](https://github.com/fynnaly/morphe-patches/commit/65e891bb2eeca12f0067dad7d09542a76740ebad))
+
 ## [1.1.0-dev.9](https://github.com/fynnaly/morphe-patches/compare/v1.1.0-dev.8...v1.1.0-dev.9) (2026-10-20)
 
 ### 🐛 Bug Fixes
