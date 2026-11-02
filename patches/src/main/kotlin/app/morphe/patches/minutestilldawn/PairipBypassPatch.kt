@@ -2,6 +2,7 @@ package app.morphe.patches.minutestilldawn
 
 import app.morphe.patcher.Fingerprint
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
+import app.morphe.patcher.extensions.InstructionExtensions.instructions
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
 import app.morphe.patcher.fieldAccess
 import app.morphe.patcher.patch.bytecodePatch
@@ -11,7 +12,10 @@ import app.morphe.patches.minutestilldawn.Constants.COMPATIBILITY_20MTD
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction11x
+import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction21c
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction35c
+import com.android.tools.smali.dexlib2.iface.reference.FieldReference
+import com.android.tools.smali.dexlib2.immutable.reference.ImmutableStringReference
 import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference
 import com.android.tools.smali.dexlib2.immutable.value.ImmutableStringEncodedValue
@@ -74,6 +78,11 @@ import com.android.tools.smali.dexlib2.util.FieldUtil
  * still runs Play integrity checks, so this is a best-effort client-side bypass for
  * a re-signed build, not a full de-PairIP.
  */
+
+// Room's generated WorkManager DAO: the one place where a pool-blanked string
+// breaks the game (see Layer 10).
+private const val WORK_SPEC_DAO_IMPL = "Landroidx/work/impl/model/WorkSpecDao_Impl;"
+private const val WORK_SPEC_DAO_SCHEDULING = "getAllEligibleWorkSpecsForScheduling"
 
 // ---- Layer 1 + 2 -----------------------------------------------------------------
 
@@ -425,6 +434,59 @@ val pairipBypassPatch = bytecodePatch(
                     MutableStringEncodedValue(ImmutableStringEncodedValue(""))
                 )
             }
+        }
+
+        // ---- Layer 10: repair the one string the pool blanking breaks ---------------
+        //
+        // Blanking the pool is safe for the game's own SDK strings, but PairIP had
+        // also moved one of Room's column names into it. Room's generated WorkManager
+        // DAO then reads an empty column name and dies:
+        //
+        //   java.lang.IllegalArgumentException: column '' does not exist. ...
+        //     at androidx.room.util.CursorUtil.getColumnIndexOrThrow(CursorUtil.kt:99)
+        //     at androidx.work.impl.model.WorkSpecDao_Impl.getAllEligibleWorkSpecsForScheduling
+        //     at androidx.work.impl.Schedulers.schedule(Schedulers.java:78)
+        //     at androidx.work.impl.WorkManagerImpl.rescheduleEligibleWork(WorkManagerImpl.java:701)
+        //     at androidx.work.impl.utils.ForceStopRunnable.forceStopRunnable(ForceStopRunnable.java:223)
+        //
+        // The exception is raised on WorkManager's worker thread, so the whole game
+        // process dies with it — the game force-closes on the next launch after the
+        // app has been killed once (the ROM kills background apps, and the next
+        // start then runs ForceStopRunnable).
+        //
+        // Fix: read the column name from a literal again. The pool read is a
+        // `sget-object` and the replacement a `const-string` — both format 21c, so
+        // the method keeps its exact size and no offset moves.
+        //
+        // Deliberately *not* a Fingerprint: a fingerprint that does not resolve
+        // makes Morphe skip the whole patch, and skipping the PairIP bypass would
+        // leave the game unlaunchable. This lookup is defensive — when the DAO or
+        // the method is not there (other WorkManager versions), nothing happens and
+        // the bypass still applies.
+        classDefForEach { cls ->
+            if (cls.type != WORK_SPEC_DAO_IMPL) return@classDefForEach
+            val dao = mutableClassDefBy(cls)
+            val method = dao.methods.firstOrNull { it.name == WORK_SPEC_DAO_SCHEDULING }
+                ?: return@classDefForEach
+
+            val instructions = method.instructions.toList()
+            val poolReadIndex = instructions.indexOfFirst { instruction ->
+                if (instruction.opcode != Opcode.SGET_OBJECT) return@indexOfFirst false
+                val field = (instruction as? BuilderInstruction21c)?.reference as? FieldReference
+                    ?: return@indexOfFirst false
+                field.type == "Ljava/lang/String;" && !field.definingClass.startsWith("Landroidx/")
+            }
+            if (poolReadIndex < 0) return@classDefForEach
+
+            val register = (instructions[poolReadIndex] as BuilderInstruction21c).registerA
+            method.replaceInstruction(
+                poolReadIndex,
+                BuilderInstruction21c(
+                    Opcode.CONST_STRING,
+                    register,
+                    ImmutableStringReference("input_merger_class_name")
+                )
+            )
         }
     }
 }
